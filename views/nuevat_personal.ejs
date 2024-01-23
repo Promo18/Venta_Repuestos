@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Formulario Nuevo Personal</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script>
+    function cerrarPagina() {
+      window.close();
+    }
+  </script>
+</head>
+<body>
+  <h1>Formulario Nuevo Personal</h1>
+
+  <!-- Formulario para agregar personal -->
+  <form action="/nuevat_personal" method="post">
+    <label for="cod_personal">Código de Personal:</label>
+    <input type="text" name="cod_personal" required>
+    <br>
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" required>
+    <br>
+    <label for="direccion">Dirección:</label>
+    <input type="text" name="direccion">
+    <br>
+    <label for="telefono">Teléfono:</label>
+    <input type="text" name="telefono">
+    <br>
+    <label for="rol">Rol:</label>
+    <input type="text" name="rol">
+    <br>
+    <label for="contraseña">Contraseña:</label>
+    <input type="text" name="contraseña">
+    <br>
+    <label for="usuario">Usuario:</label>
+    <input type="text" name="usuario" required>
+    <br>
+    <!-- Botón para agregar personal -->
+    <button type="submit">Agregar</button>
+  </form>
+
+  <!-- Botón para volver a la página principal -->
+  <button onclick="cerrarPagina()">Cerrar Página</button>
+
+</body>
+</html>

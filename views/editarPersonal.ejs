@@ -1,0 +1,37 @@
+<!-- En el archivo editarPersonal.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Editar Personal</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+  <h1>Editar Personal</h1>
+
+  <!-- Formulario para editar personal -->
+  <form action="/editart_personal/<%= personal.cod_personal %>" method="post">
+    <label for="cod_personal">Código de Personal:</label>
+    <input type="text" name="cod_personal" value="<%= personal.cod_personal %>" required>
+    <br>
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" value="<%= personal.nombre %>" required>
+    <br>
+    <label for="direccion">Dirección:</label>
+    <input type="text" name="direccion" value="<%= personal.direccion %>">
+    <br>
+    <label for="telefono">Teléfono:</label>
+    <input type="text" name="telefono" value="<%= personal.telefono %>">
+    <br>
+    <label for="rol">Rol:</label>
+    <input type="text" name="rol" value="<%= personal.rol %>">
+    <br>
+    <label for="contraseña">Contraseña:</label>
+    <input type="text" name="contraseña" value="<%= personal.contraseña %>">
+    <br>
+    <label for="usuario">Usuario:</label>
+    <input type="text" name="usuario" value="<%= personal.usuario %>" required>
+    <br>
+    <button type="submit">Editar</button>
+  </form>
+</body>
+</html>

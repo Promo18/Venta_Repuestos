@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lista de Personal</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    .ventana-emergente {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+  </style>
+  
+  <script>
+    $(document).ready(function() {
+      // Función para mostrar la ventana emergente de editar
+      function mostrarEditar(id) {
+        // Actualiza el atributo href para redirigir a la ruta /editarPersonal
+        var editarUrl = '/editarPersonal/' + id;
+        window.location.href = editarUrl;
+      }
+
+      // Función para mostrar la ventana emergente de eliminar
+      function mostrarEliminar(id) {
+        // Muestra la ventana emergente de eliminar
+        $('#eliminarVentanaEmergente').show();
+        // Asigna el ID a un campo oculto en la ventana emergente de eliminar
+        $('#inputEliminarID').val(id);
+      }
+
+      // Función para cerrar la ventana emergente
+      function cerrarVentanaEmergente() {
+        // Cierra todas las ventanas emergentes
+        $('.ventana-emergente').hide();
+      }
+
+      // Evento clic para los botones de editar
+      $('.btn-editar').click(function() {
+        var id = $(this).data('id');
+        mostrarEditar(id);
+      });
+
+      // Evento clic para los botones de eliminar
+      $('.btn-eliminar').click(function() {
+        var id = $(this).data('id');
+        mostrarEliminar(id);
+      });
+
+      // Evento clic para el botón cancelar en la ventana emergente de eliminar
+      $('#btnCancelarEliminar').click(function() {
+        cerrarVentanaEmergente();
+      });
+      $('#btnCancelarEditar').click(function() {
+        cerrarVentanaEmergente();
+      });
+      // Evento clic para el botón aceptar en la ventana emergente de eliminar
+      $('#btnAceptarEliminar').click(function() {
+        var id = $('#inputEliminarID').val();
+  
+        // Realiza la solicitud POST para eliminar la entrada de personal
+        // En la función de éxito después de eliminar
+        $.post('/eliminar', { id: id }, function(response) {
+          console.log(response); // Maneja la respuesta del servidor
+
+          // Redirige a la misma página para recargar la tabla
+          window.location.reload();
+        });
+
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Lista de Personal</h1>
+
+  <!-- Botón para abrir el formulario en una nueva pestaña -->
+  <a href="/nuevat_personal">
+    <button>Agregar Personal</button>
+  </a>
+
+  <!-- Tabla de personal -->
+  <table border="1">
+    <colgroup>
+      <col width="2%">
+      <col width="18%">
+      <col width="40%">
+      <col width="15%">
+      <col width="12%">
+      <col width="13%">
+    </colgroup>
+    <thead>
+      <th scope="col">cod_personal</th>
+      <th scope="col">nombre</th>
+      <th scope="col">direccion</th>
+      <th scope="col">telefono</th>
+      <th scope="col">rol</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Eliminar</th>
+    </thead>
+    <tbody>
+      <% for(var i=0; i< datos.length; i++) { %>
+        <tr>
+          <td><%= datos[i].cod_personal %></td>
+          <td><%= datos[i].nombre %></td>
+          <td><%= datos[i].direccion %></td>
+          <td><%= datos[i].telefono %></td>
+          <td><%= datos[i].rol %></td>
+          <td><button class="btn-editar" data-id="<%= datos[i].cod_personal %>">Editar</button></td>
+          <td><button class="btn-eliminar" data-id="<%= datos[i].cod_personal %>">Eliminar</button></td>
+        </tr>
+      <% } %>
+    </tbody>
+  </table>
+
+  <!-- Ventana emergente de eliminar -->
+  <div id="eliminarVentanaEmergente" class="ventana-emergente" style="display: none;">
+    <p>¿Estás seguro de que deseas eliminar esta entrada de personal?</p>
+    <button id="btnAceptarEliminar">Aceptar</button>
+    <button id="btnCancelarEliminar">Cancelar</button>
+    <!-- Campo oculto para almacenar el ID de la entrada de personal a eliminar -->
+    <input type="hidden" id="inputEliminarID">
+  </div>
+  <!-- Ventana emergente de editar -->
+
+  
+
+</body>
+</html>
